@@ -1,6 +1,6 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Basic next-intl implementation with App Router
+## This is an implementation of next-intl for using strongly typed fully server-side translations
 
 First, run the development server:
 

@@ -1,15 +1,15 @@
-import { useTranslations } from "next-intl";
-import { getTranslations } from "next-intl/server";
-import Link from "next/link";
-import React, { useEffect } from "react";
+"use client";
+import Button from "./Button";
+import { ClientComponentT } from "../translations/types/ClientComponentT";
 
-const ClientComponent: React.FC = () => {
-  const t = useTranslations("ClientComponent");
+const ClientComponent: React.FC<{ translations: ClientComponentT }> = ({
+  translations,
+}) => {
   return (
     <div>
-      <h2>{t("title")}</h2>
-      <p>{t("subtitle")}</p>
-      <Link href={t("link")}>{t("cta")}</Link>
+      <h2>{translations.title}</h2>
+      <p>{translations.subtitle}</p>
+      <Button translations={translations.button} />
     </div>
   );
 };

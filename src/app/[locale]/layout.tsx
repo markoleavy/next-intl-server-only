@@ -15,6 +15,7 @@ export default function LocaleLayout({
   unstable_setRequestLocale(locale);
   return (
     <html lang={locale}>
+      {/* We dont' need next-intl context wrapper*/}
       <body>{children}</body>
     </html>
   );
