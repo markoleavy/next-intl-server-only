@@ -1,6 +1,6 @@
 import { getTranslations } from "next-intl/server";
 import type { Translation } from "../translations/types/Translation";
-import { FullTranslation } from "../translations/types/fullTranslation";
+import { FullTranslation } from "../translations/types/FullTranslation";
 type TranslationGettter = {
   key: string;
   getter: string | TranslationGettter[];

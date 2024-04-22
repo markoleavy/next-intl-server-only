@@ -9,3 +9,4 @@ export class ClientComponentT implements Translation {
     link: "",
   };
 }
+

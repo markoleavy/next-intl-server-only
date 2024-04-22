@@ -1,4 +1,4 @@
-import { FullTranslation } from "./types/fullTranslation";
+import { FullTranslation } from "./types/FullTranslation";
 
 const en: FullTranslation = {
   Index: {
