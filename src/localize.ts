@@ -1,29 +1,21 @@
 import { getTranslations } from "next-intl/server";
-import type { Translation } from "../translations/types/Translation";
-import { FullTranslation } from "../translations/types/FullTranslation";
+import { Translation } from "../translations/types/Translation";
 type TranslationGettter = {
   key: string;
   getter: string | TranslationGettter[];
 };
-// recursively maps <T> default fields and subfields, returning an array of objects with a key and a getter.
-// Example:
-// [
-//   { key: "title", getter: "title" },
-//   { key: "subtitle", getter: "subtitle" },
-//   {
-//     key: "button",
-//     getter: [
-//       { key: "cta", getter: "button.cta" },
-//       { key: "link", getter: "button.link" },
-//     ],
-//   },
-// ];
-function getKeyGettersMap(translations: Translation, previousKey?: string) {
+
+function getKeyGettersMap<T extends Translation>(
+  translations: T,
+  previousKey?: string
+) {
   const keys: TranslationGettter[] = [];
   for (const key in translations) {
-    if (typeof translations[key as keyof Translation] === "object") {
+    if (key === "namespace") {
+      continue;
+    } else if (typeof translations[key] === "object") {
       const subkeys = getKeyGettersMap(
-        translations[key as keyof Translation],
+        translations[key] as Translation,
         previousKey ? `${previousKey}.${key}` : key
       );
       keys.push({
@@ -65,17 +57,14 @@ function resolveTranslation({
   }
 }
 
-export async function localize<T extends Translation>({
-  namespace,
-  TranslationClass,
-}: {
-  namespace: keyof FullTranslation;
-  TranslationClass: new () => T;
-}): Promise<T> {
+export async function localize<T extends Translation>(
+  TranslationClass: new () => T
+): Promise<T> {
   // get the namespace translations
-  const t = await getTranslations(namespace);
+  const translationClassInstance = new TranslationClass();
+  const t = await getTranslations(translationClassInstance.namespace);
   // create a "translation getters" array from the empty <T> value
-  const translationsGetters = getKeyGettersMap(new TranslationClass());
+  const translationsGetters = getKeyGettersMap(translationClassInstance);
   // maps translations values in a typescript file
   const translations = translationsGetters.reduce((acc, word) => {
     return {
@@ -83,15 +72,6 @@ export async function localize<T extends Translation>({
       ...resolveTranslation({ t, translation: word }),
     };
   }, {} as T) as T;
-  // Returns:
-  //   {
-  //     title: "This is a server component",
-  //     subtitle: "The javascript of this component is exectued server-side and not sent to the browser",
-  //     button: {
-  //       cta: "Click here to view this page in Italian",
-  //       link: "/it"
-  //     },
-  //   };
 
   return translations;
 }

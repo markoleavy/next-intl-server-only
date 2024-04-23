@@ -26,16 +26,16 @@ const Component: React.FC = () => {
       <h2>{t("title")}</h2>
       <p>{t("subtitle")}</p>
       <Button link={t("button.link")} cta={t("button.cta")} />
-      // Nesting nightmare begins..
+      {/* Nesting nightmare begins..*/}
       <NestedClientComponent
         title={t("nestedComponent.title")}
         subtitle={t("nestedComponent.subtitle")}
-        // ...deeper and deeper..
+        {/*...deeper and deeper..*/}
         subNestedComponentProps={
           {
             text:t("nestedComponent.subNestetedComponent.text"),
             description:t("nestedComponent.subNestetedComponent.description"),
-            // ...till the hell.
+            {/*...till the hell.*/}
             nestedButton:{
               link: t("nestedComponent.subNestetedComponent.nestedButton.link"),
               cta: t("nestedComponent.subNestetedComponent.nestedButton.cta"),
@@ -81,8 +81,9 @@ const NestedClientComponent: React.FC = async ({
 
 With the method I propose you can obtain the translations of each namespace as a **structured typescript object** with a single invocation, whose properties and sub-properties can be passed to child components and that share its type with the namaspace that is source of the transaltion (contained in the `lang.json` file).
 
+Server-side usage with custom localize() function:
+
 ```ts
-// Serve-side usage with custom localize() function.
 // import the namspace class/type
 import { ComponentT } from "../translations/classes/ComponentT";
 
@@ -102,11 +103,10 @@ const Component: React.FC = async () => {
     </div>
   );
 };
-
-//------//
-
+```
+```ts
 // NestedClientComponent.tsx
-("use-client");
+"use-client";
 import { ComponentT } from "../translations/classes/ComponentT";
 const NestedClientComponent: React.FC = async (
   // translations can be type easily as ComponentT["nestedComponent"]
@@ -370,7 +370,7 @@ export async function localize<T extends Translation>({
 
 _The function creates an instance of the `TranlsatonClass`, and recursively iterates over its empty fields - with `getKeyGettersMap()`- to create an array of `TranslationGettter` objects._
 
-When invoked for `ServeComponentT`, `getKeyGettersMap()` will return:
+_When invoked for `ServeComponentT`, `getKeyGettersMap()` will return:_
 
 ```ts
 [

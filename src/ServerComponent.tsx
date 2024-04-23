@@ -1,12 +1,9 @@
 import Button from "./Button";
 import { localize } from "./localize";
-import { ServerComponentT } from "../translations/types/ServerComponentT";
+import { ServerComponentClass } from "../translations/types/ServerComponentT";
 
 const ServerComponent: React.FC = async () => {
-  const translations = await localize({
-    namespace: "ServerComponentProps",
-    TranslationClass: ServerComponentT,
-  });
+  const translations = await localize(ServerComponentClass);
   return (
     <div>
       <h2>{translations.title}</h2>

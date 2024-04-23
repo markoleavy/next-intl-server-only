@@ -1,9 +1,9 @@
-import { ClientComponentT } from "./ClientComponentT";
-import { IndexT } from "./IndexT";
-import { ServerComponentT } from "./ServerComponentT";
+import { ClientComponentClass } from "./ClientComponent";
+import { IndexClass } from "./Index";
+import { ServerComponentClass } from "./ServerComponentT";
 
 export type FullTranslation = {
-  Index: IndexT;
-  ServerComponentProps: ServerComponentT;
-  ClientComponentProps: ClientComponentT;
+  Index: IndexClass;
+  ServerComponentProps: ServerComponentClass;
+  ClientComponentProps: ClientComponentClass;
 };

@@ -1,8 +1,8 @@
 import Link from "next/link";
 import React, { useEffect } from "react";
-import { ClientComponentT } from "../translations/types/ClientComponentT";
+import { ClientComponentClass } from "../translations/types/ClientComponent";
 
-const Button: React.FC<{ translations: ClientComponentT["button"] }> = ({
+const Button: React.FC<{ translations: ClientComponentClass["button"] }> = ({
   translations: { link, cta },
 }) => {
   return (

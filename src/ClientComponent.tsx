@@ -1,8 +1,8 @@
 "use client";
 import Button from "./Button";
-import { ClientComponentT } from "../translations/types/ClientComponentT";
+import { ClientComponentClass } from "../translations/types/ClientComponent";
 
-const ClientComponent: React.FC<{ translations: ClientComponentT }> = ({
+const ClientComponent: React.FC<{ translations: ClientComponentClass }> = ({
   translations,
 }) => {
   return (

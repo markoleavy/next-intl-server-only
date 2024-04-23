@@ -1,8 +1,8 @@
 import { FullTranslation } from "./FullTranslation";
 import { Translation } from "./Translation";
 
-export class ServerComponentClass implements Translation {
-  namespace?: keyof FullTranslation = "ServerComponentProps";
+export class ClientComponentClass implements Translation {
+  namespace?: keyof FullTranslation = "ClientComponentProps";
   constructor() {}
   title = "";
   subtitle = "";
